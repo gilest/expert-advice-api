@@ -4,9 +4,11 @@ module Api
       before_action :doorkeeper_authorize!, except: :index
 
       def index
+        filter = params[:filter]
         page = params[:page].to_i || 1
 
-        questions = SortQuestions.sort(Question.all, 'created_at', 'desc')
+        questions = FilterQuestions.filter(Question.all, filter)
+        questions = SortQuestions.sort(questions, 'created_at', 'desc')
         questions = questions.page(page).per(questions_per_page)
 
         render json: questions, meta: { page: { pages: questions.total_pages } }
