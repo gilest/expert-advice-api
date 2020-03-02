@@ -4,7 +4,7 @@ module Api
       before_action :doorkeeper_authorize!, except: :index
 
       def index
-        questions = Question.all
+        questions = SortQuestions.sort(Question.all, "created_at", "desc")
         render json: questions
       end
 
