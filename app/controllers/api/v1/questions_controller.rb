@@ -1,7 +1,7 @@
 module Api
   module V1
     class QuestionsController < Api::V1::ApiController
-      before_action :doorkeeper_authorize!, except: :index
+      before_action :doorkeeper_authorize!, except: [:index, :show]
 
       def index
         filter = params[:filter]
