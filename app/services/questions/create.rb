@@ -7,7 +7,7 @@ module Questions
     end
 
     def run
-      ensure_tags
+      process_tags
 
       @question = Question.new(params)
 
@@ -21,8 +21,23 @@ module Questions
 
     private
 
-    def ensure_tags
-      @params[:tags] = params[:tags] || ''
+    # Processes tag data into a consistent format
+    def process_tags
+      if !params[:tags]
+        @params[:tags] = ''
+        return
+      end
+
+      @params[:tags] = params[:tags]
+                       .downcase
+                       # Replace all unwanted chars with a space
+                       .gsub(/[^a-z1-9,]/, ' ')
+                       # Replace all sections of whitespace with a single space
+                       .gsub(/\s+/, ' ')
+                       .split(',')
+                       .uniq
+                       .sort
+                       .join(',')
     end
   end
 end
