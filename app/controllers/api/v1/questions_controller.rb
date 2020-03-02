@@ -12,6 +12,12 @@ module Api
         render json: questions, meta: { page: { pages: questions.total_pages } }
       end
 
+      def show
+        question = Question.friendly.find(params[:id])
+
+        render json: question
+      end
+
       private
 
       def user_params

@@ -10,6 +10,7 @@ gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.0', require: false
+gem 'friendly_id', '~> 5.2.4'
 
 # Auth
 gem 'bcrypt', '~> 3.1.7'
