@@ -30,6 +30,13 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 8
 
+Style/Documentation:
+  Exclude:
+    - app/controllers/**/*
+    - app/models/*
+    - app/serializers/*
+    - app/mailers/*
+
 AllCops:
   Exclude:
     - spec/**/*
