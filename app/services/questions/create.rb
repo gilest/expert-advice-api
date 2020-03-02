@@ -7,6 +7,8 @@ module Questions
     end
 
     def run
+      ensure_tags
+
       @question = Question.new(params)
 
       if @question.valid?
@@ -15,6 +17,12 @@ module Questions
       end
 
       false
+    end
+
+    private
+
+    def ensure_tags
+      @params[:tags] = params[:tags] || ''
     end
   end
 end

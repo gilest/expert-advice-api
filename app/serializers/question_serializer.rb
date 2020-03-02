@@ -4,8 +4,4 @@ class QuestionSerializer < ActiveModel::Serializer
   def id
     object.slug
   end
-
-  def tags
-    object.tags.split(',')
-  end
 end
