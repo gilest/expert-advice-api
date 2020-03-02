@@ -18,6 +18,25 @@ module Api
         render json: question
       end
 
+      def create
+        jsonapi = JSON.parse(request.raw_post).fetch("data")
+
+        params = {
+          title: jsonapi.dig("attributes", "title"),
+          description: jsonapi.dig("attributes", "description"),
+          tags: jsonapi.dig("attributes", "tags"),
+          user: current_user
+        }
+
+        service = Questions::Create.new(params)
+
+        if service.run
+          render json: service.question
+        else
+          render json: service.question, status: 422, serializer: ActiveModel::Serializer::ErrorSerializer
+        end
+      end
+
       private
 
       def user_params
