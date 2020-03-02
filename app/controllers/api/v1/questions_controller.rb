@@ -6,7 +6,7 @@ module Api
       def index
         page = params[:page].to_i || 1
 
-        questions = SortQuestions.sort(Question.all, "created_at", "desc")
+        questions = SortQuestions.sort(Question.all, 'created_at', 'desc')
         questions = questions.page(page).per(questions_per_page)
 
         render json: questions, meta: { page: { pages: questions.total_pages } }
