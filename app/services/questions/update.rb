@@ -1,18 +1,17 @@
 module Questions
-  class Create
-    attr_reader :params, :question
+  class Update
+    attr_reader :question, :params
 
-    def initialize(params)
+    def initialize(question, params)
+      @question = question
       @params = params
     end
 
     def run
       process_tags
+      update_slug
 
-      @question = Question.new(params)
-
-      if @question.valid?
-        @question.save!
+      if @question.update(params)
         return true
       end
 
@@ -23,6 +22,10 @@ module Questions
 
     def process_tags
       @params[:tags] = Questions::ProcessTags.new(params[:tags]).run
+    end
+
+    def update_slug
+      @params[:slug] = nil
     end
   end
 end
