@@ -8,7 +8,7 @@ module Api
 
         params = {
           body: jsonapi.dig("attributes", "body"),
-          question: Question.friendly.find(jsonapi.dig("relationships", "question", "data", "id")),
+          question: Question.find(jsonapi.dig("relationships", "question", "data", "id")),
           user: current_user
         }
 

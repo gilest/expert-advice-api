@@ -41,7 +41,7 @@ module Api
       end
 
       def destroy
-        question = Question.friendly.find(params[:id])
+        question = Question.find(params[:id])
         service = Questions::Destroy.new(question)
 
         if service.run

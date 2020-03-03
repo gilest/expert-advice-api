@@ -1,10 +1,6 @@
 class QuestionSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :tags, :views
+  attributes :id, :title, :description, :tags, :views, :slug
 
   belongs_to :user
   has_many :answers
-
-  def id
-    object.slug
-  end
 end
