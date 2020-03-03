@@ -51,7 +51,7 @@ module Api
           tags: jsonapi.dig("attributes", "tags")
         }
 
-        service = Questions::Update.new(question, params)
+        service = Questions::Update.new(question, params, current_user)
 
         if service.run
           render json: service.question
@@ -69,7 +69,7 @@ module Api
 
       def destroy
         question = Question.find(params[:id])
-        service = Questions::Destroy.new(question)
+        service = Questions::Destroy.new(question, current_user)
 
         if service.run
           head 204

@@ -1,13 +1,19 @@
 module Questions
   class Update
-    attr_reader :question, :params
+    attr_reader :question, :params, :current_user
 
-    def initialize(question, params)
+    def initialize(question, params, current_user)
       @question = question
       @params = params
+      @current_user = current_user
     end
 
     def run
+      unless can_update?
+        @question.errors.add(:base, 'You are not permitted to update this question')
+        return false
+      end
+
       process_tags
       update_slug
 
@@ -19,6 +25,10 @@ module Questions
     end
 
     private
+
+    def can_update?
+      current_user == question.user
+    end
 
     def process_tags
       @params[:tags] = Questions::ProcessTags.new(params[:tags]).run
