@@ -18,7 +18,7 @@ module Api
       def show
         question = Question.friendly.find(params[:id])
 
-        render json: question, include: :answers
+        render json: question, include: [:user, :answers]
       end
 
       def create
@@ -37,6 +37,17 @@ module Api
           render json: service.question
         else
           render json: service.question, status: 422, serializer: ActiveModel::Serializer::ErrorSerializer
+        end
+      end
+
+      def destroy
+        question = Question.friendly.find(params[:id])
+        service = Questions::Destroy.new(question)
+
+        if service.run
+          head 204
+        else
+          head 422
         end
       end
 
