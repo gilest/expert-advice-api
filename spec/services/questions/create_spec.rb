@@ -7,9 +7,9 @@ describe Questions::Create do
   context 'with valid params' do
     let :params do
       {
-        title: "How many roads must a man walk down?",
-        description: "Perhaps the answer is blowing in the wind...",
-        tags: "WiNd,Bob-dylan,cryptic_lyrics,cryptic  lyrics",
+        title: 'How many roads must a man walk down?',
+        description: 'Perhaps the answer is blowing in the wind...',
+        tags: '',
         user: user
       }
     end
@@ -19,10 +19,6 @@ describe Questions::Create do
 
     it 'runs succesfully' do
       expect(result).to eq(true)
-    end
-
-    it 'tag format has been transformed' do
-      expect(service.question.tags).to eq('bob dylan,cryptic lyrics,wind')
     end
   end
 
