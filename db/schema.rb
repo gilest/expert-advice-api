@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_204115) do
+ActiveRecord::Schema.define(version: 2020_03_03_000941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2020_03_02_204115) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "user_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
@@ -65,7 +75,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_204115) do
     t.bigint "user_id", null: false
     t.string "title", null: false
     t.text "description", null: false
-    t.string "tags", default: "",null: false
+    t.string "tags", default: "", null: false
     t.integer "views", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -92,6 +102,8 @@ ActiveRecord::Schema.define(version: 2020_03_02_204115) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"

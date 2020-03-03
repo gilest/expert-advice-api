@@ -17,7 +17,7 @@ module Api
       def show
         question = Question.friendly.find(params[:id])
 
-        render json: question
+        render json: question, include: :answers
       end
 
       def create
