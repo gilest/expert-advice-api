@@ -11,7 +11,8 @@ module Api
         questions = SortQuestions.sort(questions, 'created_at', 'desc')
         questions = questions.page(page).per(questions_per_page)
 
-        render json: questions, meta: { page: { pages: questions.total_pages } }
+        render json: questions,
+               meta: { page: { pages: questions.total_pages } }
       end
 
       def show
