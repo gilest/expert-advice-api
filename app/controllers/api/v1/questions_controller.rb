@@ -1,7 +1,7 @@
 module Api
   module V1
     class QuestionsController < Api::V1::ApiController
-      before_action :doorkeeper_authorize!, except: [:index, :show]
+      before_action :doorkeeper_authorize!, except: [:index, :record_view]
 
       def index
         filter = params[:filter]
@@ -58,6 +58,13 @@ module Api
         else
           render json: service.question, status: 422, serializer: ActiveModel::Serializer::ErrorSerializer
         end
+      end
+
+      def record_view
+        success = Question.increment_views(params[:id])
+        response_code = success ? 204 : 404
+
+        head response_code
       end
 
       def destroy
