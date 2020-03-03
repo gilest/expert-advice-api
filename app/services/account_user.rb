@@ -1,3 +1,4 @@
+# A utility class that represents the join between User and Account
 class AccountUser
   attr_reader :account, :user, :access
    def initialize(account:, user:)

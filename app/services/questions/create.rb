@@ -1,4 +1,5 @@
 module Questions
+  # CRUD service for creating Question model objects
   class Create
     attr_reader :params, :question
 

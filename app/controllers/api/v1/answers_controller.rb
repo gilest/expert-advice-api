@@ -4,11 +4,11 @@ module Api
       before_action :doorkeeper_authorize!
 
       def create
-        jsonapi = JSON.parse(request.raw_post).fetch("data")
+        jsonapi = JSON.parse(request.raw_post).fetch('data')
 
         params = {
-          body: jsonapi.dig("attributes", "body"),
-          question: Question.find(jsonapi.dig("relationships", "question", "data", "id")),
+          body: jsonapi.dig('attributes', 'body'),
+          question: Question.find(jsonapi.dig('relationships', 'question', 'data', 'id')),
           user: current_user
         }
 

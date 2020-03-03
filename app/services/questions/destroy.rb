@@ -1,4 +1,5 @@
 module Questions
+  # CRUD service for destroying Question model objects
   class Destroy
     def initialize(question, current_user)
       @question = question

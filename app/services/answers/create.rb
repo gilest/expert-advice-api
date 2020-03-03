@@ -1,4 +1,5 @@
 module Answers
+  # CRUD service for creating Answer model objects
   class Create
     attr_reader :params, :answer
 

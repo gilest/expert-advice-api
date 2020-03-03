@@ -1,7 +1,7 @@
 module Api
   module V1
     class QuestionsController < Api::V1::ApiController
-      before_action :doorkeeper_authorize!, except: [:index, :record_view]
+      before_action :doorkeeper_authorize!, except: %i[index record_view]
 
       def index
         filter = params[:filter]
@@ -18,16 +18,16 @@ module Api
       def show
         question = Question.friendly.find(params[:id])
 
-        render json: question, include: [:user, :answers]
+        render json: question, include: %i[user answers]
       end
 
       def create
-        jsonapi = JSON.parse(request.raw_post).fetch("data")
+        jsonapi = JSON.parse(request.raw_post).fetch('data')
 
         params = {
-          title: jsonapi.dig("attributes", "title"),
-          description: jsonapi.dig("attributes", "description"),
-          tags: jsonapi.dig("attributes", "tags"),
+          title: jsonapi.dig('attributes', 'title'),
+          description: jsonapi.dig('attributes', 'description'),
+          tags: jsonapi.dig('attributes', 'tags'),
           user: current_user
         }
 
@@ -43,12 +43,12 @@ module Api
       def update
         question = Question.find(params[:id])
 
-        jsonapi = JSON.parse(request.raw_post).fetch("data")
+        jsonapi = JSON.parse(request.raw_post).fetch('data')
 
         params = {
-          title: jsonapi.dig("attributes", "title"),
-          description: jsonapi.dig("attributes", "description"),
-          tags: jsonapi.dig("attributes", "tags")
+          title: jsonapi.dig('attributes', 'title'),
+          description: jsonapi.dig('attributes', 'description'),
+          tags: jsonapi.dig('attributes', 'tags')
         }
 
         service = Questions::Update.new(question, params, current_user)

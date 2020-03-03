@@ -3,6 +3,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def account
     return unless @instance_options[:account_user]
+
     account_user = @instance_options[:account_user]
     account_user.account
   end

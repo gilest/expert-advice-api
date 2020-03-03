@@ -1,25 +1,21 @@
-# Processes tag data into a consistent format
 module Questions
+  # Processes raw tag data into a consistent format
   class ProcessTags
     def initialize(tags)
       @tags = tags
     end
 
     def run
-      if !@tags
-        return ''
-      end
+      return '' unless @tags
 
       @tags = @tags
-             .downcase
-             # Replace all unwanted chars with a space
-             .gsub(/[^a-z1-9,]/, ' ')
-             # Replace all sections of whitespace with a single space
-             .gsub(/\s+/, ' ')
-             .split(',')
-             .uniq
-             .sort
-             .join(',')
+              .downcase
+              .gsub(/[^a-z1-9,]/, ' ') # All unwanted chars replaced with space
+              .gsub(/\s+/, ' ')        # Trim whitespace to single spaces
+              .split(',')
+              .uniq
+              .sort
+              .join(',')
       @tags
     end
   end

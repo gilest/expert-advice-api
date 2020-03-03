@@ -1,4 +1,5 @@
 module Questions
+  # CRUD service for updating Question model objects
   class Update
     attr_reader :question, :params, :current_user
 
@@ -17,9 +18,7 @@ module Questions
       process_tags
       update_slug
 
-      if @question.update(params)
-        return true
-      end
+      return true if @question.update(params)
 
       false
     end
